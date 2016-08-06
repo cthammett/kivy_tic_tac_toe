@@ -1,0 +1,44 @@
+#:set padding 20
+#:import get_color_from_hex kivy.utils.get_color_from_hex
+
+<Tile>:
+    canvas:
+        Color:
+            rgb: self.color
+            
+        BorderImage:
+            pos: self.pos
+            size: self.size
+            source: 'cell.png'
+            
+    Label:
+        pos: root.pos
+        size: root.size
+        bold: True
+        color: root.text_color
+        font_size: root.font_size
+        text: root.text
+  
+TTTLayout:
+    orientation: 'vertical'
+    Label:
+        id: titleLabel
+        text: board.winner
+        color: get_color_from_hex('f65e3b')
+        font_size: 20
+    Board:
+        id: board
+        pos_hint: {'center_x':0.5, 'center_y':0.5}
+        size_hint: (None, None)
+        center: root.center
+        size: [min(root.width/1.2, root.height/1.2) - 2 * padding] * 2
+    BoxLayout:
+        orientation: 'vertical'
+        size_hint: (1, None)
+        Button:
+            id: resetbtn
+            text: 'Reset'
+            size_hint_x: 0.5
+            pos_hint: {'center_x':0.5, 'center_y':0.5}
+            on_press: board.reset()
+    
